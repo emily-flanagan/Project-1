@@ -1,10 +1,19 @@
 package com.example.project1
 
+import android.content.Intent
 import android.util.Log
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.MoreVert
+import androidx.compose.material3.Card
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.Icon
@@ -19,6 +28,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.runtime.setValue
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.platform.LocalContext
+import androidx.core.net.toUri
+import coil.compose.AsyncImage
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
@@ -80,5 +91,46 @@ fun TopHeadlines() {
         }
         myHeadlineList = result
         Log.d("HeadlineCount", "myHeadlineList is ${myHeadlineList.size}")
+    }
+}
+
+@Composable
+fun HeadlineCard(headline: HeadlineData, modifier:Modifier=Modifier){
+    val context= LocalContext.current
+    Card(modifier=Modifier.fillMaxWidth()
+        .padding(1.dp)
+        //add
+        .clickable(
+            onClick={
+                val headlineCardIntent= Intent(Intent.ACTION_VIEW)
+                    .apply{
+                        data= headline.url.toUri()
+                    }
+                context.startActivity(headlineCardIntent)
+            }
+        )
+
+    )  {
+
+        Row(modifier=Modifier.padding(2.dp)) {
+            // Image(
+            // painter = painterResource(R.drawable.adventure_brewing),
+            AsyncImage(
+                model=headline.image,
+                contentDescription = null,
+                modifier = Modifier
+                    .size(60.dp)
+                    .padding(1.dp)
+            )
+            //AsyncImage  use model verses painter. model=yelp.icon
+            Spacer(modifier=Modifier.width(5.dp))
+            Column() {
+                Text(headline.title)
+                Text(headline.source)
+                Text(headline.description)
+                //Text(yelp.url)
+            }
+
+        }
     }
 }

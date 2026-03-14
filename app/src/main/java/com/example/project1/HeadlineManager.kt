@@ -3,6 +3,8 @@ import android.util.Log
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import okhttp3.logging.HttpLoggingInterceptor
+import org.json.JSONObject
+import kotlin.String
 
 class HeadlineManager {
     val okHttpClient: OkHttpClient
@@ -23,9 +25,37 @@ class HeadlineManager {
 
         val response=okHttpClient.newCall(request).execute()
         val responseBody=response.body?.string()
-        Log.d("httpResponse", "response is $response and body is $responseBody")
+        if(response.isSuccessful && !responseBody.isNullOrEmpty()) {
+            val headlines=mutableListOf<HeadlineData>()
+            val json= JSONObject(responseBody)
+            val article = json.getJSONArray("businesses")
+            for (i in 0 until article.length()) {
+                val current = article.getJSONObject(i)
+                val name = current.getString("title")
+                val currentSource=current.getString("source")
+                val cat = current.getString("category")
+                val img = current.getString("urlToImage")
+                val currentURL = current.getString("url")
+                val currentAuthor = current.getString("author")
+                val currentDescription = current.getString("description")
 
-        return listOf()
+                val headline=HeadlineData(
+                    title = name,
+                    author = currentAuthor,
+                    description = currentDescription,
+                    category = cat,
+                    source = currentSource,
+                    image = img,
+                    url = currentURL
+                )
+                headlines.add(headline)
+            }
+            return headlines
+        }
+        else {
+            return listOf()
+        }
+        //Log.d("httpResponse", "response is $response and body is $responseBody")
     }
 }
 
