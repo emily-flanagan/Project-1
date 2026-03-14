@@ -28,12 +28,12 @@ class HeadlineManager {
         if(response.isSuccessful && !responseBody.isNullOrEmpty()) {
             val headlines=mutableListOf<HeadlineData>()
             val json= JSONObject(responseBody)
-            val article = json.getJSONArray("businesses")
+            val article = json.getJSONArray("articles")
             for (i in 0 until article.length()) {
                 val current = article.getJSONObject(i)
                 val name = current.getString("title")
-                val currentSource=current.getString("source")
-                val cat = current.getString("category")
+                val sourceObject = current.getJSONObject("source")
+                val currentSource=sourceObject.getString("name")
                 val img = current.getString("urlToImage")
                 val currentURL = current.getString("url")
                 val currentAuthor = current.getString("author")
@@ -43,7 +43,6 @@ class HeadlineManager {
                     title = name,
                     author = currentAuthor,
                     description = currentDescription,
-                    category = cat,
                     source = currentSource,
                     image = img,
                     url = currentURL
