@@ -24,7 +24,7 @@ import androidx.compose.ui.unit.dp
 
 
     @Composable
-    fun HomeScreen(modifier: Modifier=Modifier) {
+    fun HomeScreen(onTopHeadlines: ()-> Unit,modifier: Modifier=Modifier) {
         var search by remember{ mutableStateOf("") }
         val context = LocalContext.current
         Column(
@@ -60,8 +60,8 @@ import androidx.compose.ui.unit.dp
             }
             Spacer(Modifier.width(50.dp))
             Button(
-                onClick = {
-                    Toast.makeText(context, "Button Clicked", Toast.LENGTH_LONG).show()
+                onClick = { onTopHeadlines()
+                    //Toast.makeText(context, "Button Clicked", Toast.LENGTH_LONG).show()
                 }
             ) {
                 Text("Top Headlines")
@@ -74,8 +74,8 @@ import androidx.compose.ui.unit.dp
         return search.isNotBlank()
     }
 
-    @Preview(showBackground = true)
+    /*@Preview(showBackground = true)
     @Composable
     fun HomePreview(){
         HomeScreen()
-    }
+    }*/

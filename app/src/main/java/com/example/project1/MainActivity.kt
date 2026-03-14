@@ -44,9 +44,15 @@ class MainActivity : ComponentActivity() {
                 )
             }
             composable("home") {
-                HomeScreen()
+                HomeScreen(
+                    onTopHeadlines = {
+                        navController.navigate("topHeadlines")
+                    }
+                )
             }
-
+            composable("topHeadlines") {
+                TopHeadlines()
+            }
         }
     }
 }

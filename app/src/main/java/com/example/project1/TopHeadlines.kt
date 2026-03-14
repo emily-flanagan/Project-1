@@ -1,5 +1,6 @@
 package com.example.project1
 
+import android.util.Log
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
@@ -10,12 +11,16 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.runtime.setValue
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.platform.LocalContext
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 
 // Spinner idea in Composable https://developer.android.com/develop/ui/compose/components/menu
 @Composable
@@ -60,5 +65,20 @@ fun MinimalDropdownMenu() {
                 onClick = { /* Do something... */ }
             )
         }
+    }
+}
+
+@Composable
+fun TopHeadlines() {
+    val context = LocalContext.current
+    val apiKey = context.getString(R.string.HeadlineKey)
+    val headlineManager = HeadlineManager()
+    var myHeadlineList by remember { mutableStateOf<List<HeadlineData>>(emptyList()) }
+    LaunchedEffect(Unit) {
+        val result = withContext(Dispatchers.IO) {
+            headlineManager.retrieveHeadlines("general", apiKey)
+        }
+        myHeadlineList = result
+        Log.d("HeadlineCount", "myHeadlineList is ${myHeadlineList.size}")
     }
 }
