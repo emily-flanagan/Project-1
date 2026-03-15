@@ -24,7 +24,7 @@ import androidx.compose.ui.unit.dp
 
 
     @Composable
-    fun HomeScreen(onTopHeadlines: ()-> Unit,onSearch: (String)-> Unit,modifier: Modifier=Modifier ) {
+    fun HomeScreen(onTopHeadlines: ()-> Unit,onSearch: (String)-> Unit,onMap: ()-> Unit, modifier: Modifier=Modifier ) {
         var search by remember{ mutableStateOf("") }
         val context = LocalContext.current
         Column(
@@ -39,7 +39,7 @@ import androidx.compose.ui.unit.dp
                 label={Text("Search Term")},
                 modifier=Modifier.padding(8.dp))
             Button (onClick = { onSearch(search)
-                Toast.makeText(context, "Button Clicked", Toast.LENGTH_LONG).show()
+                //Toast.makeText(context, "Button Clicked", Toast.LENGTH_LONG).show()
             },
                 enabled = checkSearch(search)){
                 Text("Search")
@@ -47,8 +47,8 @@ import androidx.compose.ui.unit.dp
             //Spacer(Modifier.width(50.dp))
             // Go to the map screen to see local news based on a location the user selects
             Button(
-                onClick = {
-                    Toast.makeText(context, "Button Clicked", Toast.LENGTH_LONG).show()
+                onClick = { onMap()
+                    //Toast.makeText(context, "Button Clicked", Toast.LENGTH_LONG).show()
                 }
             ) {
                 Text("Local News")

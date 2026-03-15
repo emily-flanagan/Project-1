@@ -47,6 +47,9 @@ class MainActivity : ComponentActivity() {
                     onSearch = {
                         // https://www.geeksforgeeks.org/kotlin/jetpack-compose-navigation-and-passing-data-in-android/
                         navController.navigate("search/$it")
+                    },
+                    onMap = {
+                        navController.navigate("map")
                     }
                 )
             }
@@ -58,6 +61,9 @@ class MainActivity : ComponentActivity() {
             composable("search" + "/{searchTerm}") {navBackStack ->
                 val term = navBackStack.arguments?.getString("searchTerm")
                 SearchScreen(searchTerm = term)
+            }
+            composable("map") {
+                DisplayMap()
             }
         }
     }
