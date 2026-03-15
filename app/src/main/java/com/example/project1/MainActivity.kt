@@ -26,7 +26,7 @@ class MainActivity : ComponentActivity() {
             }
         }
     }
-// navigate function through the app
+    // navigate function through the app
     @Composable
     fun Navigate() {
         val navController = rememberNavController()
@@ -63,7 +63,15 @@ class MainActivity : ComponentActivity() {
                 SearchScreen(searchTerm = term)
             }
             composable("map") {
-                DisplayMap()
+                DisplayMap(
+                    onSearch = {
+                        // https://www.geeksforgeeks.org/kotlin/jetpack-compose-navigation-and-passing-data-in-android/
+                        navController.navigate("search/$it")
+                    }
+                )
+            }
+            composable("mapHeadlines") {
+                MapHeadlines()
             }
         }
     }
