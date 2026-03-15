@@ -30,7 +30,7 @@ class MainActivity : ComponentActivity() {
             }
         }
     }
-
+// navigate function through the app
     @Composable
     fun Navigate() {
         val navController = rememberNavController()
@@ -48,10 +48,16 @@ class MainActivity : ComponentActivity() {
                     onTopHeadlines = {
                         navController.navigate("topHeadlines")
                     }
+                    onSearch = {
+                        navController.navigate("search")
+                    }
                 )
             }
             composable("topHeadlines") {
                 TopHeadlines()
+            }
+            composable("search") {
+                SearchScreen()
             }
         }
     }

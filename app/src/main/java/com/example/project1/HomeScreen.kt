@@ -31,26 +31,21 @@ import androidx.compose.ui.unit.dp
             modifier=modifier.fillMaxSize(),
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally) {
-
+            // search field for user to enter a value to pass to the headline manager
             TextField(value=search,
                 onValueChange = {newValue ->
                     search=newValue
                 },
                 label={Text("Search Term")},
                 modifier=Modifier.padding(8.dp))
-            Button (onClick = {
+            Button (onClick = { onSearch()
                 Toast.makeText(context, "Button Clicked", Toast.LENGTH_LONG).show()
             },
                 enabled = checkSearch(search)){
                 Text("Search")
             }
-        }
-
-        Row(
-            modifier=modifier.fillMaxSize()
-
-        ) {
-            Spacer(Modifier.width(50.dp))
+            //Spacer(Modifier.width(50.dp))
+            // Go to the map screen to see local news based on a location the user selects
             Button(
                 onClick = {
                     Toast.makeText(context, "Button Clicked", Toast.LENGTH_LONG).show()
@@ -58,7 +53,8 @@ import androidx.compose.ui.unit.dp
             ) {
                 Text("Local News")
             }
-            Spacer(Modifier.width(50.dp))
+            //Spacer(Modifier.width(50.dp))
+            // Go to the top headlines screen to see all top headlines (default general, user can choose from dropdown)
             Button(
                 onClick = { onTopHeadlines()
                     //Toast.makeText(context, "Button Clicked", Toast.LENGTH_LONG).show()
@@ -66,11 +62,11 @@ import androidx.compose.ui.unit.dp
             ) {
                 Text("Top Headlines")
             }
-            Spacer(Modifier.width(50.dp))
+            //Spacer(Modifier.width(50.dp))
         }
     }
 
-    fun checkSearch(search: String): Boolean{
+fun checkSearch(search: String): Boolean{
         return search.isNotBlank()
     }
 
