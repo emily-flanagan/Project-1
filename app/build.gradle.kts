@@ -4,7 +4,13 @@ plugins {
     alias(libs.plugins.kotlin.compose)
     id("com.google.android.libraries.mapsplatform.secrets-gradle-plugin")
 }
-
+// got this from google - was having an issue :
+// Duplicate class com.google.common.util.concurrent.ListenableFuture found in modules guava-23.0.jar -> guava-23.0 (com.google.guava:guava:23.0) and listenablefuture-1.0.jar -> listenablefuture-1.0 (com.google.guava:listenablefuture:1.0) 
+configurations {
+    all {
+        exclude(group = "com.google.guava", module = "listenablefuture")
+    }
+}
 android {
     namespace = "com.example.project1"
     compileSdk {
@@ -67,5 +73,4 @@ dependencies {
     implementation("com.squareup.okhttp3:logging-interceptor:4.12.0")
     // coil dependency for image loading
     implementation("io.coil-kt:coil-compose:2.7.0")
-    implementation("com.google.maps.android:maps-compose:6.1.0")
 }
