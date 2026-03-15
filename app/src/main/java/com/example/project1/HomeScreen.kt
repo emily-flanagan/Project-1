@@ -24,7 +24,7 @@ import androidx.compose.ui.unit.dp
 
 
     @Composable
-    fun HomeScreen(onTopHeadlines: ()-> Unit,modifier: Modifier=Modifier) {
+    fun HomeScreen(onTopHeadlines: ()-> Unit,onSearch: (String)-> Unit,modifier: Modifier=Modifier ) {
         var search by remember{ mutableStateOf("") }
         val context = LocalContext.current
         Column(
@@ -38,7 +38,7 @@ import androidx.compose.ui.unit.dp
                 },
                 label={Text("Search Term")},
                 modifier=Modifier.padding(8.dp))
-            Button (onClick = { onSearch()
+            Button (onClick = { onSearch(search)
                 Toast.makeText(context, "Button Clicked", Toast.LENGTH_LONG).show()
             },
                 enabled = checkSearch(search)){

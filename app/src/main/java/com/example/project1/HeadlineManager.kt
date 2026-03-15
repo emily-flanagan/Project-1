@@ -1,5 +1,4 @@
 package com.example.project1
-import android.util.Log
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import okhttp3.logging.HttpLoggingInterceptor
@@ -62,7 +61,7 @@ class HeadlineManager {
         //Log.d("httpResponse", "response is $response and body is $responseBody")
     }
 // Function to return values based on search term entered by user
-    suspend fun retrieveSearch(searchTerm: String, apiKey: String): List<HeadlineData> {
+    suspend fun retrieveSearch(searchTerm: String?, apiKey: String): List<HeadlineData> {
         // actual request to get the headlines from the NewsAPI
         val request = Request.Builder()
             .url("https://newsapi.org/v2/everything?q=$searchTerm&apiKey=$apiKey")
@@ -107,7 +106,7 @@ class HeadlineManager {
         //Log.d("httpResponse", "response is $response and body is $responseBody")
     }
 
-    // Function to return sources based on dropdown choice by user (default is general)
+    /*// Function to return sources based on dropdown choice by user (default is general)
     suspend fun retrieveSources(category: String, apiKey: String): List<SourceData> {
         // actual request to get the sources from the NewsAPI
         val request = Request.Builder()
@@ -143,6 +142,6 @@ class HeadlineManager {
             return listOf()
         }
         //Log.d("httpResponse", "response is $response and body is $responseBody")
-    }
+    }*/
 }
 
